@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Overlay Div with Rows</title>
+    <style>
+        /* Custom CSS to center the modal */
+        .modal {
+          text-align: center;
+        }
+
+        .modal-dialog {
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            margin: 0 auto;
+        }
+
+        .modal-content {
+            font-size: 24;
+            display: inline-block;
+            text-align: left;
+            margin: 0 auto;
+        }
+
+        /* center modal */
+    </style>
+    <style>
+
+        .btn {
+            white-space: normal; /* Ensures text wraps within button */
+            overflow: hidden; /* Hides overflowing text */
+            /* text-overflow: ellipsis; */
+             /* Shows an ellipsis (...) to indicate text overflow */
+            max-height: 3.6em; /* Limits the height of the button to approximately 2 lines */
+            padding: 6px 12px; /* Adjust padding as needed */
+        }
+
+        /* buttons R L */
+        .button {
+            display: inline-block;
+            width: 200px; /* Set the width of the buttons */
+            height: 200px; /* Set the height of the buttons */
+            font-size: 24px !important;
+            margin-right: 10px;
+            background-color: #f1f1f1;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            cursor: pointer;
+            }
+
+            .button:hover {
+              background-color: #ddd;
+            }
+
+            .correct {
+                background-color: green; /* Set the color for the correct button */
+            }
+        /*  */
+    </style>
+    <style>
+
+        .centered-absolute {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+
+          .circle {
+            position: absolute;
+            border-radius: 50%;
+            background-color: red;
+            width: 10px;
+            height: 10px;
+            transform: translate(-50%, -50%);
+        }
+        
+        .container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* pointer-events: none;  */
+        }
+
+        .quranLine {
+            height: calc(100% / 17);
+            background-color: white; /* Set the background color to white */
+            opacity: 0; /* Set opacity to make them opaque */
+            box-sizing: border-box;
+        }
+        #quranPageImage {
+            clip-path: inset(54px 54px 54px 54px);
+            display: block;
+            max-width: 100%;
+            height: auto;
+            /* opacity:0; */
+        }
+        #imageContainer {
+            display: inline-block;
+            position: relative;
+        }
+
+        #imageContainer::after {
+            content: '';
+            position: absolute;
+            top: 50px; /* Adjust this value to match the clip-path inset value */
+            bottom: 50px;
+            left: 60px;
+            right: 60px;
+            border: 2px solid black; /* Black border for the overlay */
+            pointer-events: none; /* Allows clicks to go through the overlay to the image */
+        }
+
+    </style>
+    <script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <!-- Optional theme -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+
+</head>
+<body dir='rtl'>
+ 
+    <p id="trials">0</p>
+    <div dir='rtl' style="width:622px">
+        <p>page number 111111</p>
+        <p>aya number 111111</p>
+    </div>
+    <div class="container">
+        <!-- Button trigger modal -->
+        <button id="showFourChoicesButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#fourChoicesModal">
+            Show 4 choices
+        </button>
+
+        <!-- start modal of 4 choices -->
+        <div class="modal fade" id="fourChoicesModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-body">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                        <div id="choice_1" class="btn btn-lg btn-block btn-primary choice">Option 1</div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                        <div id="choice_2" class="btn btn-lg btn-block btn-primary choice">Option 2</div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                        <div id="choice_3" class="btn btn-lg btn-block btn-primary choice">Option 3</div>
+                        </div>
+                        <div class="col-md-6 col-sm-6">
+                        <div id="choice_4" class="btn btn-lg btn-block btn-primary choice">Option 4</div>
+                        </div>
+                    </div>
+                    </div>
+
+                </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- end modal of 4 choices -->
+
+        <!-- Button trigger modal -->
+        <button id="showModalButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">
+        Show Overlay
+        </button>
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog modal-sm">
+            
+                <!-- Modal content-->
+                <div class="modal-content">
+                <div class="modal-body">
+                    <button id="rightButton" onclick="checkButton('right')" class="btn btn-lg  btn-default">
+                        <div style="font-size:24!important">
+                            اليمين
+                        </div>
+                    </button>
+                    <button id="leftButton" onclick="checkButton('left')" class="btn  btn-lg btn-default">
+                        اليسار
+                    </button>
+                </div>
+                </div>
+                
+            </div>
+        </div>
+        <!-- <div id="myAlert" class="alert alert-success " role="alert" >
+            Correct! Well done.
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div> -->
+
+        <img id="checkMark" src="https://iili.io/J6KOr22.png" style="width:150px;" hidden  >
+
+        <div id="imageContainer">
+            <img id="quranPageImage" src="https://quran.ksu.edu.sa/png_big/100.png" alt="Quran page image">
+            <div class="overlay">
+                <div class="quranLine" data-row="0"></div>
+                <div class="quranLine" data-row="1"></div>
+                <div class="quranLine" data-row="2"></div>
+                <div class="quranLine" data-row="3"></div>
+                <div class="quranLine" data-row="4"></div>
+                <div class="quranLine" data-row="5"></div>
+                <div class="quranLine" data-row="6"></div>
+                <div class="quranLine" data-row="7"></div>
+                <div class="quranLine" data-row="8"></div>
+                <div class="quranLine" data-row="9"></div>
+                <div class="quranLine" data-row="10"></div>
+                <div class="quranLine" data-row="11"></div>
+                <div class="quranLine" data-row="12"></div>
+                <div class="quranLine" data-row="13"></div>
+                <div class="quranLine" data-row="14"></div>
+                <div class="quranLine" data-row="15"></div>
+                <div class="quranLine" data-row="16"></div>
+            </div>
+        </div>
+    </div>
+
+
+    
+   
+    <script src="rectangles.js"></script>
+    <script>
+        function delay(functionName, delay=100) {
+            setTimeout(() => {
+                window[functionName]();
+            }, delay);
+        }
+        var trials=0;
+        const mainAyaId=631;
+        const coordinates=[[135,244,628],[424,459,629],[480,567,630],[139,564,631],[244,673,632],[79,834,633]];
+        var previousAyaPosition=[];
+        var ayaRectangles=[];
+        coordinates.forEach(function(ayaPosition, index){
+            if(index <1){
+                previousAyaPosition = getRightPointOfLine(1);
+            }else{
+                previousAyaPosition = coordinates[index-1];
+            }
+            ayaRectangles=getRectangles(ayaPosition,previousAyaPosition);
+            ayaId=ayaPosition[2];
+            drawOverlayRectangles('imageContainer', ayaRectangles ,ayaId);
+        });
+        document.querySelectorAll('.rectangle').forEach(function(element) {
+            element.addEventListener('click', function(event) {
+                var ayaId = element.getAttribute('data-aya_id');
+                if(mainAyaId==ayaId){
+                    // showCheckMark(event.clientX,event.clientY);
+                    showCheckMark('75%',200);
+                }
+            });
+        });
+        
+
+
+        var correctRectangles=[[[139,544],[480,547],[480,587],[139,584]]];
+        console.log('correctRectangles',correctRectangles);
+        var pageNumber=100
+
+        function showLine(lineNumber) {
+            lineNumber++;
+            var line = document.querySelector('.quranLine:nth-child(' + lineNumber + ')');
+            if (line) {
+                line.style.opacity = '0';
+            }
+        }
+        // showLines.forEach(function(e){
+        //     showLine(e);
+        // });
+
+        function isCorrectLine(line){
+            return correctLines.includes(line);
+        }
+
+        function adjustScore(correct){
+            if(correct){
+                colorAnswer();
+                setTimeout(() => {
+                    alert('correct answer!');
+                }, 100);
+                delay('askLeftOrRight');
+            }else{
+                trials++;
+                showStats();
+            }
+        }
+
+        function showStats(){
+            let trialsElement = document.getElementById("trials");
+            trialsElement.textContent = trials;
+        }
+        function colorAnswer(){
+            drawOverlayRectangles('imageContainer', correctRectangles);
+        }
+
+        function askLeftOrRight(){
+            var ans=confirm('right page?');
+            if( ans && (pageNumber%2==1) || !ans && (pageNumber%2==0)){
+                alert('correct!');
+            }else{
+                alert('wrong!');
+            }
+        }
+        function pointIsCorrect(point) {
+            return correctRectangles.some(function(rectangle) {
+                return pointInsideRectangle(rectangle, point);
+            });
+        }
+
+        function pointInsideRectangle(rectangle, point) {
+            let x1 = rectangle[0][0];
+            let y1 = rectangle[0][1];
+            let x2 = rectangle[1][0];
+            let y2 = rectangle[1][1];
+            let x3 = rectangle[2][0];
+            let y3 = rectangle[2][1];
+            let x4 = rectangle[3][0];
+            let y4 = rectangle[3][1];
+
+            let x = point[0];
+            let y = point[1];
+
+            let minX = Math.min(x1, x2, x3, x4);
+            let maxX = Math.max(x1, x2, x3, x4);
+            let minY = Math.min(y1, y2, y3, y4);
+            let maxY = Math.max(y1, y2, y3, y4);
+
+            return x >= minX && x <= maxX && y >= minY && y <= maxY;
+        }
+        function drawCirclesOnImage(coordinates,color='red') {
+            // const container = imageElement.parentElement;
+            var container = document.getElementById('imageContainer');
+            var circle = document.createElement('div');
+            circle.classList.add('circle');
+            circle.style.left = coordinates[0] + 'px';
+            circle.style.top = coordinates[1] + 'px';
+            circle.style.backgroundColor= color;
+            // console.log('circle',circle,coordinates);
+            container.appendChild(circle);
+        }
+    
+        function drawOverlayRectangles(containerId, rectangles ,ayaId) {
+            // Get the image container element
+            var container = document.getElementById(containerId);
+            var img = container.querySelector('img');
+
+            // Create a div for the overlay
+            rectangles.forEach(function(points){                
+                var overlay = document.createElement('div');
+                overlay.setAttribute('data-aya_id', ayaId);
+                overlay.style.position = 'absolute';
+                overlay.style.top = '0px';
+                overlay.style.left ='0px';
+                overlay.style.width = 100 + '%';
+                overlay.style.height = 100 + '%';
+                // overlay.style.opacity = 1;
+                // overlay.style.pointerEvents = 'none'; // Allow clicks to fall through to the image
+    
+                // Create a clipping path for the overlay
+                var path = `polygon(${points.map(point => `${point[0]}px ${point[1]}px`).join(', ')})`;
+                overlay.style.clipPath = path;
+                overlay.style.webkitClxScaleipPath = path;
+    
+                // Set the overlay color and opacity
+                // overlay.style.backgroundColor = 'rgba(0, 255, 0, 0.5)';
+                overlay.style.backgroundColor = 'rgba(128, 128, 128, 0.5)';//grey 
+                overlay.style.backgroundColor = 'rgba(255, 255, 255, 1)';//grey 
+    
+                overlay.classList.add('rectangle');
+
+                // Append the overlay to the container
+                container.appendChild(overlay);
+            });
+        }
+
+        drawCirclesOnImage([0, 0]);//start 
+        drawCirclesOnImage([622,917],'bl>increse fontue');//end of page, just to make sure the dimensions are correct :) need to make scale according to responsive design
+
+        
+
+       
+
+        
+    </script>
+    <script>
+        // showCheckMark('75%',200);
+        // $('#myAlert').hide(500);
+        function showCheckMark(x,y){
+            var image = $('#checkMark');
+            image.show();
+            image.css({position: 'absolute', left:x, top:y+200, opacity:1});
+            image.animate({ left: x, top: y , opacity:0 }, 1000);
+            console.log('animation here');
+        }
+        // image.fadeOut(1000);
+        
+
+    </script>
+    <script>
+    $(document).ready(function() {
+        
+        $('.rectangle').on('click',function() {
+            var element =$(this);
+            element.css({
+                'background-color': 'rgba(255, 255, 255, 0)'
+            });
+            if(mainAyaId==element.data('aya_id')){
+                showCheckMark(element.offset().left,element.offset().top);
+                $('.rectangle[data-aya_id="'+element.data('aya_id')+'"]').each(function(ele){
+                    $(this).css({
+                        'background-color': 'rgba(0, 255, 0, 0.25)'
+                    }).off('click');
+                });
+            }
+            element.off('click');
+        });
+
+    });
+    function checkButton(selected) {
+        // Assume the correct answer is 'right' for example purposes
+        if( selected=='right' && (pageNumber%2==1) || selected=='left' && (pageNumber%2==0)){
+            // alert('correct!');
+            showCheckMark('75%',200);
+        }else{
+            alert('wrong!');
+        }
+        
+
+        // Disable the buttons after an answer is selected
+        $('.button').prop('disabled', true);
+    }
+</script>
+<script>
+$(document).ready(function() {
+  $('#showModalButton').click(function() {
+    // $('#myModal').modal('show');
+
+    // Calculate the position relative to #quranPageImage
+    var quranPageOffset = $('#quranPageImage').offset();
+    var quranPageWidth = $('#quranPageImage').outerWidth();
+    var quranPageHeight = $('#quranPageImage').outerHeight();
+    var modalWidth = $('.modal-dialog').outerWidth();
+    var modalHeight = $('.modal-dialog').outerHeight();
+
+    var top = quranPageOffset.top + (quranPageHeight / 2) - (modalHeight / 2) - 200;
+    var left = quranPageOffset.left + (quranPageWidth / 2) - (modalWidth / 2);
+
+    $('.modal-dialog').css({
+        'position':'absolute',
+      'top': top + 'px',
+      'left': left + 'px'
+    });
+  });
+});
+</script>
+
+<!-- script to fill four choices modal -->
+<script>
+    $('#fourChoicesModal').on('show.bs.modal', function (event) {
+        var modal = $(this);
+        var choicesObjects = {
+            "97": "لا خير في كثير من",
+            "99": "وان امراه خافت من بعلها",
+            "101": "الذين يتربصون بكم فان كان",
+            "103": "فبما نقضهم ميثاقهم وكفرهم بايات"
+        }
+        console.log(choicesObjects);
+        // modal.find(`#choice_${index+1}`).text(nearbyAya[0]);
+        var i=1;
+        var arr=[];
+        Object.keys(choicesObjects).forEach(function(page) {
+            arr.push([choicesObjects[page],page]);
+        });
+        arr.sort( () => .5 - Math.random() );
+        console.log(arr);
+        arr.forEach(function(element,index){
+            var choice=modal.find('#choice_'+(index+1));
+            choice.text(element[0]);
+            choice.data('page',element[1])
+        });
+        $('.choice').on('click',function(){
+            var element=$(this);
+            var page=element.data('page');
+            page=parseInt(page);
+            pageNumber=parseInt(pageNumber);
+            
+            // console.log(pageNumber,parseInt(pageNumber, 10));
+            console.log(typeof(page),typeof(pageNumber));
+            if(page==pageNumber+1){
+                console.log(page,+1,element.offset().left,element.offset().top);
+                showCheckMark(element.offset().left,element.offset().top);
+                modal.animate({
+                    opacity: 0
+                }, 500, function() {
+                    $(this).modal('hide').css('opacity', 1);
+                });
+            }else{
+                element.hide(500);
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
