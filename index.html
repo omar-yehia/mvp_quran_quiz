@@ -207,6 +207,7 @@
                         <div class="counter-box custom-button">
                             الأخطاء: <span data-count="0" id="counter">0</span>
                         </div>
+                        <br>
                         <button id="counterRedButton" class="btn custom-button arrow-button" style="color:white;background-color:#b51a09">
                         سجل خطأ
                             <span class="glyphicon glyphicon-arrow-up" style="color:white"></span>
@@ -307,6 +308,8 @@
                             <!-- Modal content-->
                             <div class="modal-content">
                                 <div class="modal-body">
+                                    <h1>الصفحة؟</h1>
+
                                     <div class="button-container">
                                         <button id="rightButton" data-rl="right" class="rlButton btn custom-btn btn-default">اليمين</button>
                                         <button id="leftButton" data-rl="left" class="rlButton btn custom-btn btn-default">اليسار</button>
@@ -722,7 +725,7 @@
             var $mistakesDiv = $('#mistakesDiv');
             $mistakesDiv.css({
                 top: imageOffset.top + (imageHeight / 2) - ($mistakesDiv.height() / 2) + 'px',
-                left: imageOffset.left - $mistakesDiv.width() + 80 + 'px'
+                left: imageOffset.left - $mistakesDiv.width() + 100 + 'px'
             });
         }
         $(document).ready(function() {
@@ -890,6 +893,7 @@
             function reciteQuestionCallBack(){
                 $('#finalStatsModal').modal('toggle');
             }
+            startRecitingMode();
 
     </script>
 
