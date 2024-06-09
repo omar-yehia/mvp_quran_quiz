@@ -3,7 +3,13 @@
 
 <head>
     <title>Overlay Div with Rows</title>
-
+    <style>
+        #reciteButton,#mistakesDiv{
+            position: absolute;
+            z-index: 100;
+        }
+        
+    </style>
     <style>
         .counter-box {
             display: inline-block;
@@ -197,13 +203,15 @@
             <div class="col-md-2 col-sm-2 bg-info">
                 <div id="recitingDiv" class="hidden">
                     <button id="reciteButton" type="button" class="btn btn-primary custom-button">الآية التالية</button>
-                    <div class="counter-box custom-button">
-                        الأخطاء: <span data-count="0" id="counter">0</span>
+                    <div id="mistakesDiv">
+                        <div class="counter-box custom-button">
+                            الأخطاء: <span data-count="0" id="counter">0</span>
+                        </div>
+                        <button id="counterRedButton" class="btn custom-button arrow-button" style="color:white;background-color:#b51a09">
+                        سجل خطأ
+                            <span class="glyphicon glyphicon-arrow-up" style="color:white"></span>
+                        </button>
                     </div>
-                    <button id="counterRedButton" class="btn custom-button arrow-button" style="color:white;background-color:#b51a09">
-                    سجل خطأ
-                        <span class="glyphicon glyphicon-arrow-up" style="color:white"></span>
-                    </button>
                 </div>
                 <!-- <button id="startRecitingModeButton" type="button" class="btn btn-primary btn-lg">start</button> -->
                 <!-- left block -->
@@ -332,17 +340,17 @@
             <div class="col-md-8 col-sm-8">
 
                 <p id="trials">0</p>
-                <h3> 100</h3>
-                <h1> بَشِّرِ ٱلۡمُنَٰفِقِينَ بِأَنَّ لَهُمۡ عَذَابًا أَلِيمًا </h1>
+                <h3> 576</h3>
+                <h1>عليها تسعة عشر</h1>
 
             </div>
 
         </div>
         <div class="row bg-warning">
             <div class="col-md-12 col-sm-12 text-center">
-                <img id="checkMark" src="{{asset('images/checkMark.png')}}" style="width:150px;z-index:999" hidden>
+                <!-- <img id="checkMark" src="{{asset('images/checkMark.png')}}" style="width:150px;z-index:999" hidden> -->
                 <div id="imageContainer">
-            <img id="quranPageImage" src="https://quran.ksu.edu.sa/png_big/100.png" alt="Quran page image">
+            <img id="quranPageImage" src="https://quran.ksu.edu.sa/png_big/576.png" alt="Quran page image">
             <div class="overlay">
                     <div class="overlay" style="transform:scale(1)">
                         <div class="quranLine" data-row="0"></div>
@@ -381,9 +389,188 @@
             }, delay);
         }
         var trials = 0;
-        const mainAyaId=631;
-        const coordinates=[[135,244,628],[424,459,629],[480,567,630],[139,564,631],[244,673,632],[79,834,633]];
-        const mainSuraId =4 ;
+        var pageNumber=576;
+        const mainAyaId=5525;
+        const mainSuraId =74;
+        const coordinates=[
+            [
+                424,
+                85,
+                5514
+            ],
+            [
+                268,
+                84,
+                5515
+            ],
+            [
+                191,
+                84,
+                5516
+            ],
+            [
+                540,
+                139,
+                5517
+            ],
+            [
+                380,
+                137,
+                5518
+            ],
+            [
+                140,
+                136,
+                5519
+            ],
+            [
+                427,
+                193,
+                5520
+            ],
+            [
+                275,
+                189,
+                5521
+            ],
+            [
+                83,
+                190,
+                5522
+            ],
+            [
+                428,
+                246,
+                5523
+            ],
+            [
+                311,
+                245,
+                5524
+            ],
+            [
+                156,
+                244,
+                5525
+            ],
+            [
+                492,
+                566,
+                5526
+            ],
+            [
+                388,
+                567,
+                5527
+            ],
+            [
+                263,
+                566,
+                5528
+            ],
+            [
+                110,
+                566,
+                5529
+            ],
+            [
+                433,
+                620,
+                5530
+            ],
+            [
+                320,
+                620,
+                5531
+            ],
+            [
+                541,
+                673,
+                5532
+            ],
+            [
+                317,
+                673,
+                5533
+            ],
+            [
+                147,
+                669,
+                5534
+            ],
+            [
+                461,
+                728,
+                5535
+            ],
+            [
+                322,
+                728,
+                5536
+            ],
+            [
+                156,
+                725,
+                5537
+            ],
+            [
+                438,
+                781,
+                5538
+            ],
+            [
+                215,
+                781,
+                5539
+            ],
+            [
+                454,
+                837,
+                5540
+            ],
+            [
+                246,
+                834,
+                5541
+            ],
+            [
+                83,
+                833,
+                5542
+            ]
+        ];
+        var correctRectangles=[
+            [
+                [
+                    156,
+                    224
+                ],
+                [
+                    311,
+                    225
+                ],
+                [
+                    311,
+                    265
+                ],
+                [
+                    156,
+                    264
+                ]
+            ]
+        ];
+        var nearbySurasNames = {
+            "73": "المُزمل",
+            "74": "المُدثر",
+            "75": "القِيَامة",
+            "76": "الإنسَان"
+        };
+        var choicesObjects = {
+            "573": "وانا منا المسلمون ومنا القاسطون",
+            "575": "ان ربك يعلم انك تقوم",
+            "577": "فما تنفعهم شفاعه الشافعين",
+            "579": "عينا يشرب بها عباد الله"
+        };
         console.log(coordinates);
         var previousAyaPosition = [];
         var ayaRectangles = [];
@@ -397,10 +584,7 @@
             ayaId = ayaPosition[2];
             drawOverlayRectangles('imageContainer', ayaRectangles, ayaId);
         });
-        
-        var correctRectangles=[[[139,544],[480,547],[480,587],[139,584]]];
         console.log('correctRectangles', correctRectangles);
-        var pageNumber=100;
 
 
         function adjustScore(correct) {
@@ -497,8 +681,8 @@
             });
         }
 
-        drawCirclesOnImage([0, 0]); //start 
-        drawCirclesOnImage([622, 917], 'bl>increse fontue'); //end of page, just to make sure the dimensions are correct :) need to make scale according to responsive design
+        // drawCirclesOnImage([0, 0]); //start 
+        // drawCirclesOnImage([622, 917], 'blue'); //end of page, just to make sure the dimensions are correct :) need to make scale according to responsive design
     </script>
     <script>
 
@@ -522,8 +706,27 @@
     </script>
     <script>
      
+        function setPositionOfReciteButtons(){
+            var $image = $('#quranPageImage');
+            var $button = $('#reciteButton');
 
+            var imageOffset = $image.offset();
+            var imageHeight = $image.height();
+            var imageWidth = $image.width();
+
+            $button.css({
+                top: 20+ imageOffset.top + (imageHeight / 2) - ($button.height() / 2) + 'px',
+                left: imageOffset.left + imageWidth + 250 + 'px'
+            });
+
+            var $mistakesDiv = $('#mistakesDiv');
+            $mistakesDiv.css({
+                top: imageOffset.top + (imageHeight / 2) - ($mistakesDiv.height() / 2) + 'px',
+                left: imageOffset.left - $mistakesDiv.width() + 80 + 'px'
+            });
+        }
         $(document).ready(function() {
+            setPositionOfReciteButtons();
             $('.rectangle').on('click', function(e) {
                 var element = $(this);
                 element.css({
@@ -563,7 +766,6 @@
         // start of js for 4 choices modal
         $('#fourChoicesSuraModal').on('show.bs.modal', function(event) {
             var modal = $(this);
-            var nearbySurasNames = {2:"البقرة",3:"ال عمران",4:"النساء",5:"المائدة"};
             console.log(nearbySurasNames);
             var i = 1;
             var arr = [];
@@ -599,12 +801,7 @@
         // start of js for 4 choices modal
         $('#fourChoicesModal').on('show.bs.modal', function(event) {
             var modal = $(this);
-            var choicesObjects = {
-                "97": "لا خير في كثير من",
-                "99": "وان امراه خافت من بعلها",
-                "101": "الذين يتربصون بكم فان كان",
-                "103": "فبما نقضهم ميثاقهم وكفرهم بايات"
-            }
+           
             console.log(choicesObjects);
             var i = 1;
             var arr = [];
